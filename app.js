@@ -31,7 +31,7 @@ app.get('/script',function(req,res,next){
 
   console.log('Request message: ' + req.body);
 
-  var response= getDataDatabase(returnData);
+  var response= getDataDatabase();
   console.log("returned response: "+response);
   if(response === ""|| response == null){
     res.status(404).send({data:'Database error'});
