@@ -42,19 +42,23 @@ app.get('/script',function(req,res,next){
   }
 });
 
+
+var dataResponse="";
 function returnData(data){
   if(data!=null){
     console.log("The data callback "+data);
+    dataResponse=data;
     return data;
   }
   console.log("The error callback "+data);
+  dataResponse=null;
   return null;
 
 }
 
 function getDataDatabase(callback){
 
-  var response="";
+ 
 
   // the pool will emit an error on behalf of any idle clients
   // it contains if a backend error or network partition happens
@@ -75,20 +79,26 @@ function getDataDatabase(callback){
     }
 
     client.query(text, (err, res) => {
-      done()
+     
       if (err) {
         console.log("Failed:")
         console.log(err.stack)
+        dataResponse=null;
         callback(null);
+        done()
         return;
       } else {
         console.log("Succeded:")
         console.log(res.rows[0])
+        dataResponse=res.rows[0];
         callback(res.rows[0]);
+        done()
         return;
       }
     })
   });
+
+  return dataResponse;
 
 
 };
