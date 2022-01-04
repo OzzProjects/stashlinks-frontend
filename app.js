@@ -89,9 +89,6 @@ function getDataDatabase(callback){
   });
 
 
-  console.log("Final response:"+response);
-  return response;
-
 };
 
 
