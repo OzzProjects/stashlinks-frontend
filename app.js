@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const { Client } = require('pg');
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.STASH_DB_FRONTEND_URL,
   ssl: {
     rejectUnauthorized: false
   }
