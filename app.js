@@ -32,7 +32,7 @@ app.get('/script',function(req,res,next){
   console.log('Request message: ' + req.body);
 
   var response= getDataDatabase();
-  if(response === ""){
+  if(response === ""|| response == null){
     res.status(404).send({data:'Database error'});
   }
   else
@@ -41,10 +41,17 @@ app.get('/script',function(req,res,next){
   }
 });
 
+function returnData(data){
+  if(data!=null){
+    return data;
+  }
+  return null;
 
-function getDataDatabase(){
+}
 
-  var response;
+function getDataDatabase(callback){
+
+  var response="";
 
   client.connect(err => {
     if (err) {
@@ -61,10 +68,12 @@ function getDataDatabase(){
       console.log("Failed:")
       console.log(err.stack)
       response= null;
+      callback(null);
     } else {
       console.log("Succeded:")
       console.log(res.rows[0])    
       response=res.rows[0];
+      callback(res.rows[0]);
     }
 
     client.end(err => {
