@@ -79,11 +79,11 @@ function getDataDatabase(callback){
       if (err) {
         console.log("Failed:")
         console.log(err.stack)
-        callback(null);
+        return callback(null);
       } else {
         console.log("Succeded:")
         console.log(res.rows[0])
-        callback(res.rows[0]);
+        return callback(res.rows[0]);
       }
     })
   });
