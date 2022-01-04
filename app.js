@@ -85,7 +85,6 @@ function getDataDatabase(callback){
     })
   });
 
-  pool.end();
 
   console.log("Final response:"+response);
   return response;
