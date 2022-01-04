@@ -32,6 +32,7 @@ app.get('/script',function(req,res,next){
   console.log('Request message: ' + req.body);
 
   var response= getDataDatabase(returnData);
+  console.log("returned response: "+response);
   if(response === ""|| response == null){
     res.status(404).send({data:'Database error'});
   }
@@ -41,15 +42,8 @@ app.get('/script',function(req,res,next){
   }
 });
 
-function returnData(data){
-  if(data!=null){
-    return data;
-  }
-  return null;
 
-}
-
-function getDataDatabase(callback){
+function getDataDatabase(){
 
   var response="";
 
@@ -76,11 +70,12 @@ function getDataDatabase(callback){
       if (err) {
         console.log("Failed:")
         console.log(err.stack)
-        callback(null);
+        return response;
       } else {
         console.log("Succeded:")
         console.log(res.rows[0])
-        callback(res.rows[0]);
+        response=res.rows[0];
+        return response;
       }
     })
   });
